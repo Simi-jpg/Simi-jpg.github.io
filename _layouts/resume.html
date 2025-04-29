@@ -60,12 +60,56 @@
         <div class="resume-item" itemscope itemprop="worksFor" itemtype="http://schema.org/Organization">
           <h3 class="resume-item-title" itemprop="name">{{ job.company }}</h3>
           <h4 class="resume-item-details" itemprop="description">{{ job.position }} &bull; {{ job.duration }}</h4>
-          <p class="resume-item-copy">{{ job.summary }}</p>
+
+          {% if job.summary %}
+            <ul>
+                {% for item in job.summary %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+          {% endif %}
+
         </div><!-- end of resume-item -->
         {% endfor %}
 
       </section>
       <!-- end Experience -->
+      {% endif %}
+
+
+      {% if site.resume_section_projects %}
+      <!-- begin Volunteer -->
+      <section class="content-section">
+        <header class="section-header">
+          <h2>Volunteer History</h2>
+        </header>
+
+        {% for volunteer in site.data.volunteer %}
+        <div class="resume-item" itemscope itemtype="http://schema.org/CreativeWork">
+          <meta itemprop="creator" content="{{ site.resume_name }}" itemtype="http://schema.org/Person" />
+          <h3 class="resume-item-title" itemprop="name">{{ volunteer.organization }}</h3>
+
+
+          <!-- REMOVED THE LINK PART<h3 class="resume-item-title" itemprop="name">{% if project.url %}<a href="{{ project.url }}" itemprop="url">{{ project.project }}</a>{% else %}{{ project.project }}{% endif %}</h3> -->
+
+          <h4 class="resume-item-details" itemprop="description">{{ volunteer.role }}  &bull; {{ volunteer.duration }}</h4>
+
+          {% if volunteer.description %}
+          
+            <ul>
+
+                {% for item in volunteer.description %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+
+            </ul>
+          {% endif %}
+
+        </div>
+        {% endfor %}
+
+      </section>
+      <!-- end Volunteer -->
       {% endif %}
 
 
@@ -97,26 +141,7 @@
       {% endif %}
 
 
-      {% if site.resume_section_projects %}
-      <!-- begin Projects -->
-      <section class="content-section">
-        <header class="section-header">
-          <h2>Projects</h2>
-        </header>
-
-        {% for project in site.data.projects %}
-        <div class="resume-item" itemscope itemtype="http://schema.org/CreativeWork">
-          <meta itemprop="creator" content="{{ site.resume_name }}" itemtype="http://schema.org/Person" />
-          <h3 class="resume-item-title" itemprop="name">{% if project.url %}<a href="{{ project.url }}" itemprop="url">{{ project.project }}</a>{% else %}{{ project.project }}{% endif %}</h3>
-          <h4 class="resume-item-details" itemprop="description">{{ project.role }}  &bull; {{ project.duration }}</h4>
-          <p class="resume-item-copy">{{ project.description }}</p>
-        </div>
-        {% endfor %}
-
-      </section>
-      <!-- end Projects -->
-      {% endif %}
-
+      
       {% if site.resume_section_skills %}
       <!-- begin Skills -->
       <section class="content-section">
@@ -126,8 +151,15 @@
         </header>
         {% for skill in site.data.skills %}
         <div class="resume-item">
-          <h4 class="resume-item-details">{{ skill.skill }}</h4>
-          <p class="resume-item-copy">{{ skill.description }}</p>
+
+          {% if skill.skill%}
+          <ul>
+              {% for item in skill.skill %}
+                  <li>{{ item }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %}
+        
         </div>
         {% endfor %}
 
@@ -166,7 +198,7 @@
         {% for association in site.data.associations %}
         <div class="resume-item" itemscope itemprop="memberOf" itemtype="http://schema.org/Organization">
           <h3 class="resume-item-title" itemprop="name">{% if association.url %}<a href="{{ association.url }}">{{ association.organization }}</a>{% else %}{{ association.organization }}{% endif %}</h3>
-          <h4 class="resume-item-details" itemprop="description">{{ association.role }} &bull; {{ association.year }}</h4>
+          <h4 class="resume-item-details" itemprop="description">{{ association.role }}</h4>
           <p class="resume-item-copy">{{ association.summary }}</p>
         </div>
         {% endfor %}
@@ -232,8 +264,7 @@
       {% endif %}
 
       <footer class="page-footer">
-        <p class="footer-line">Made by <a href="http://twitter.com/jglovier">@jglovier</a>. Fork me on <a href="https://github.com/jglovier/resume-template">GitHub</a>.</p>
-        <p class="footer-line">If this is your live resume, you can modify or remove this part. ;-)</p>
+        <p class="footer-line">Made by <a href="https://github.com/Simi-jpg">Simi Adeniyi</a></p>
       </footer>
 
     </div>
